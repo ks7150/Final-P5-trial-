@@ -30,6 +30,12 @@ function setup() {
 
   connectButton.hide();
 }
+function restartProcess() {
+  numbers = [];
+  interval = 1000;
+  cState = NumberS;
+  correctCount = 0;
+}
 
 function receiveSerial() {
   let line = mSerial.readUntil("\n");
@@ -60,8 +66,9 @@ if (v2 == 1 && pv2 == 0) {
   } else {
     // restart
     numbers = [];
-    interval = ...;
+    interval = 1000;
     cState = NumberS;
+    restartProcess();
   }
 }
 
@@ -69,8 +76,9 @@ else if (v3 == 1 && pv3 == 0) {
   if (numbers[correctCount] == 1) {
     correctCount++;
   } else {
-    // restart
+    restartProcess();
   }
+}
 //   else if (v4 == 1 && pv4 == 0) {
 //     if (numbers[correctCount] == 2) {
 //       correctCount++;
