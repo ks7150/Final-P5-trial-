@@ -2,7 +2,7 @@ let numbers = [];
 let currentIndex = 0;
 let interval;
 let flashing = true;
-let codelength = 6;
+let codelength = 2;
 
 let readyToReceive;
 let mSerial;
@@ -11,6 +11,7 @@ let NumberS = 0;
 let ConnectS = 1;
 let InputS = 2;
 let cState = NumberS;
+let correctCount = 0;
 
 function setup() {
   createCanvas(400, 400);
@@ -31,15 +32,17 @@ function setup() {
   connectButton.hide();
 }
 function restartProcess() {
+  print("restart")
   numbers = [];
-  interval = 1000;
   cState = NumberS;
   correctCount = 0;
+  currentIndex = 0;
+  interval = setInterval(flashNumber, 1000);
 }
 
 function receiveSerial() {
   let line = mSerial.readUntil("\n");
-  trim(line);
+  line = trim(line);
   if (!line) return;
 
   if (line.charAt(0) != "{") {
@@ -53,65 +56,57 @@ function receiveSerial() {
   print(data);
   /////
   let v2 = data.v2;
-let v3 = data.v3;
-let v4 = data.v4;
-let v5 = data.v5;
-let v6 = data.v6;
-let v7 = data.v7;
+  let v3 = data.v3;
+  let v4 = data.v4;
+  let v5 = data.v5;
+  let v6 = data.v6;
+  let v7 = data.v7;
 
-
-if (v2 == 1 && pv2 == 0) {
-  if (numbers[correctCount] == 0) {
-    correctCount++;
-  } else {
-    // restart
-    numbers = [];
-    interval = 1000;
-    cState = NumberS;
-    restartProcess();
+  if (v2 == 1 && pv2 == 0) {
+    if (numbers[correctCount] == 0) {
+      correctCount++;
+    } else {
+      restartProcess();
+    }
+  } else if (v3 == 1 && pv3 == 0) {
+    if (numbers[correctCount] == 1) {
+      correctCount++;
+    } else {
+      restartProcess();
+    }
   }
-}
+  //   else if (v4 == 1 && pv4 == 0) {
+  //     if (numbers[correctCount] == 2) {
+  //       correctCount++;
+  //     } else {
+  //       // restart
+  //     }
+  //     else if (v5 == 1 && pv5 == 0) {
+  //       if (numbers[correctCount] == 3) {
+  //         correctCount++;
+  //       } else {
+  //         // restart
+  //       }
+  //       else if (v6 == 1 && pv6 == 0) {
+  //         if (numbers[correctCount] == 4) {
+  //           correctCount++;
+  //         } else {
+  //           // restart
+  //         }
+  //         else if (v7 == 1 && pv7 == 0) {
+  //           if (numbers[correctCount] == 5) {
+  //             correctCount++;
+  //           } else {
+  //             // restart
+  //           }
+  // }
 
-else if (v3 == 1 && pv3 == 0) {
-  if (numbers[correctCount] == 1) {
-    correctCount++;
-  } else {
-    restartProcess();
-  }
-}
-//   else if (v4 == 1 && pv4 == 0) {
-//     if (numbers[correctCount] == 2) {
-//       correctCount++;
-//     } else {
-//       // restart
-//     }
-//     else if (v5 == 1 && pv5 == 0) {
-//       if (numbers[correctCount] == 3) {
-//         correctCount++;
-//       } else {
-//         // restart
-//       }
-//       else if (v6 == 1 && pv6 == 0) {
-//         if (numbers[correctCount] == 4) {
-//           correctCount++;
-//         } else {
-//           // restart
-//         }
-//         else if (v7 == 1 && pv7 == 0) {
-//           if (numbers[correctCount] == 5) {
-//             correctCount++;
-//           } else {
-//             // restart
-//           }
-// }
-
-pv2 = v2;
-pv3 = v3;
-// pv4 = v4;
-// pv5 = v5;
-// pv6 = v6;
-// pv7 = v7;
-
+  pv2 = v2;
+  pv3 = v3;
+  // pv4 = v4;
+  // pv5 = v5;
+  // pv6 = v6;
+  // pv7 = v7;
 
   // serial update
   readyToReceive = true;
@@ -128,15 +123,15 @@ function flashNumber() {
     clearInterval(interval);
     flashing = false;
     setTimeout(clearScreen, 1000);
-    
   }
 }
 
 function clearScreen() {
   background(255, 20, 147);
-  if (!mSerial.opened){
-    connectButton.show();}
-    
+  if (!mSerial.opened()) {
+    connectButton.show();
+  }
+  cState = InputS;
 }
 
 function draw() {
