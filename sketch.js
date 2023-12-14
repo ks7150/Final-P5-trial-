@@ -2,7 +2,7 @@ let numbers = [];
 let currentIndex = 0;
 let interval;
 let flashing = true;
-let codelength = 2;
+let codelength = 6;
 
 let readyToReceive;
 let mSerial;
@@ -32,7 +32,7 @@ function setup() {
   connectButton.hide();
 }
 function restartProcess() {
-  print("restart")
+  print("restart");
   numbers = [];
   cState = NumberS;
   correctCount = 0;
@@ -74,39 +74,38 @@ function receiveSerial() {
     } else {
       restartProcess();
     }
+  } else if (v4 == 1 && pv4 == 0) {
+    if (numbers[correctCount] == 2) {
+      correctCount++;
+    } else {
+      restartProcess();
+    }
+  } else if (v5 == 1 && pv5 == 0) {
+    if (numbers[correctCount] == 3) {
+      correctCount++;
+    } else {
+      restartProcess();
+    }
+  } else if (v6 == 1 && pv6 == 0) {
+    if (numbers[correctCount] == 4) {
+      correctCount++;
+    } else {
+      restartProcess();
+    }
+  } else if (v7 == 1 && pv7 == 0) {
+    if (numbers[correctCount] == 5) {
+      correctCount++;
+    } else {
+      restartProcess();
+    }
   }
-  //   else if (v4 == 1 && pv4 == 0) {
-  //     if (numbers[correctCount] == 2) {
-  //       correctCount++;
-  //     } else {
-  //       // restart
-  //     }
-  //     else if (v5 == 1 && pv5 == 0) {
-  //       if (numbers[correctCount] == 3) {
-  //         correctCount++;
-  //       } else {
-  //         // restart
-  //       }
-  //       else if (v6 == 1 && pv6 == 0) {
-  //         if (numbers[correctCount] == 4) {
-  //           correctCount++;
-  //         } else {
-  //           // restart
-  //         }
-  //         else if (v7 == 1 && pv7 == 0) {
-  //           if (numbers[correctCount] == 5) {
-  //             correctCount++;
-  //           } else {
-  //             // restart
-  //           }
-  // }
 
   pv2 = v2;
   pv3 = v3;
-  // pv4 = v4;
-  // pv5 = v5;
-  // pv6 = v6;
-  // pv7 = v7;
+  pv4 = v4;
+  pv5 = v5;
+  pv6 = v6;
+  pv7 = v7;
 
   // serial update
   readyToReceive = true;
