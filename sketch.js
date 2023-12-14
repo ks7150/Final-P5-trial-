@@ -16,7 +16,7 @@ let correctCount = 0;
 function setup() {
   createCanvas(400, 400);
   background(255, 20, 147);
-  textSize(32);
+  textSize(60);
   textAlign(CENTER, CENTER);
 
   interval = setInterval(flashNumber, 1000);
@@ -118,6 +118,7 @@ function flashNumber() {
     text(thisnumber, width / 2, height / 2);
     currentIndex++;
     numbers.push(thisnumber);
+    
   } else {
     clearInterval(interval);
     flashing = false;
