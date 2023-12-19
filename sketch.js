@@ -13,11 +13,38 @@ let InputS = 2;
 let cState = NumberS;
 let correctCount = 0;
 
+
+let fontSize = 200; // Initial font size
+let zoomSpeed = 100; 
+
+
+// let img;
+// let nimg
+
+
+// function preload() {
+//   img = loadImage("pattern 1.jpg");
+// }
+
 function setup() {
-  createCanvas(400, 400);
-  background(255, 20, 147);
-  textSize(60);
+  createCanvas(windowWidth, windowHeight);
+  // img.resize(width, height);
+
+  // pixelDensity(1);
+
+  // img.resize(width, height);
+  
+  // xOff = (width - img.width) / 2;
+  // yOff = (height - img.height) / 2;
+
+  // img.loadPixels();
+  // nimg = img.get();
+
+
+
+  textSize(200);
   textAlign(CENTER, CENTER);
+  textStyle(BOLD);
 
   interval = setInterval(flashNumber, 1000);
 
@@ -136,13 +163,21 @@ function flashNumber() {
   if (currentIndex < codelength) {
     let thisnumber = floor(random(codelength));
     background(255, 20, 147);
+    textSize(fontSize);
+    textAlign(CENTER, CENTER);
+    textStyle(BOLD);
+
     text(thisnumber, width / 2, height / 2);
     currentIndex++;
     numbers.push(thisnumber);
     
+    fontSize += zoomSpeed;
+
+
   } else {
     clearInterval(interval);
     flashing = false;
+    fontSize = 200;
     setTimeout(clearScreen, 1000);
   }
 }
@@ -156,6 +191,15 @@ function clearScreen() {
 }
 
 function draw() {
+  // background(img);
+  // if (cState == NumberS && flashing) {
+  //   let thisnumber = floor(random(codelength));
+  //   textSize(200);
+  //   textAlign(CENTER, CENTER);
+  //   textStyle(BOLD);
+  //   text(thisnumber, width / 2, height / 2);
+  // }
+  
   if (cState == NumberS) {
   } else if (cState == ConnectS) {
   } else if (cState == InputS) {
@@ -170,6 +214,9 @@ function draw() {
       receiveSerial();
     }
   }
+ 
+
+
 }
 function connectToSerial() {
   if (!mSerial.opened()) {
