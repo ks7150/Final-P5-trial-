@@ -13,34 +13,20 @@ let InputS = 2;
 let cState = NumberS;
 let correctCount = 0;
 
-
 let fontSize = 200; // Initial font size
-let zoomSpeed = 100; 
+let zoomSpeed = 100;
 
+let button;
 
-// let img;
+let img;
 // let nimg
 
-
-// function preload() {
-//   img = loadImage("pattern 1.jpg");
-// }
+function preload() {
+  img = loadImage("pattern 1.jpg");
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  // img.resize(width, height);
-
-  // pixelDensity(1);
-
-  // img.resize(width, height);
-  
-  // xOff = (width - img.width) / 2;
-  // yOff = (height - img.height) / 2;
-
-  // img.loadPixels();
-  // nimg = img.get();
-
-
 
   textSize(200);
   textAlign(CENTER, CENTER);
@@ -57,8 +43,32 @@ function setup() {
   connectButton.mousePressed(connectToSerial);
 
   connectButton.hide();
+
+  ///////////
+
+  button = createButton("AGAIN!!!", "black");
+  button.position(200, 200);
+  button.hide();
+
+  button.mousePressed(restartProcess1);
 }
+
+function restartProcess1() {
+  print("restart");
+  numbers = [];
+  cState = NumberS;
+  correctCount = 0;
+  currentIndex = 0;
+  interval = setInterval(flashNumber, 1000);
+  button.hide();
+}
+
 function restartProcess() {
+  background(255, 0, 0);
+  textSize(100);
+  textAlign(CENTER, CENTER);
+  text("Nay", width / 2, height / 2);
+
   print("restart");
   numbers = [];
   cState = NumberS;
@@ -137,32 +147,24 @@ function receiveSerial() {
   // serial update
   readyToReceive = true;
 
-// //////////////////////////////////WORDS ON SCREEN 
+  // //////////////////////////////////WORDS ON SCREEN
 
-if (correctCount === codelength) {
-  background(0, 255, 0); 
-  textSize(32);
-  textAlign(CENTER, CENTER);
-  text("Yay", width / 2, height / 2);
-} else if (correctCount < currentIndex++) {
-
-  // Incorrect step entered
-
-  background(255, 0, 0);
-  textSize(32);
-  textAlign(CENTER, CENTER);
-  text("Nay", width / 2, height / 2);
-  setTimeout(restartProcess, 1000);
-}
-
-// ///////////////////////////////////
-
+  if (correctCount === codelength) {
+    background(0, 255, 0);
+    textSize(100);
+    textAlign(CENTER, CENTER);
+    text("Yay", width / 2, height / 2);
+    button.show();
+  } else {
+    background(img);
+  }
+  // ///////////////////////////////////
 }
 
 function flashNumber() {
   if (currentIndex < codelength) {
     let thisnumber = floor(random(codelength));
-    background(255, 20, 147);
+    background(img);
     textSize(fontSize);
     textAlign(CENTER, CENTER);
     textStyle(BOLD);
@@ -170,10 +172,8 @@ function flashNumber() {
     text(thisnumber, width / 2, height / 2);
     currentIndex++;
     numbers.push(thisnumber);
-    
+
     fontSize += zoomSpeed;
-
-
   } else {
     clearInterval(interval);
     flashing = false;
@@ -183,7 +183,7 @@ function flashNumber() {
 }
 
 function clearScreen() {
-  background(255, 20, 147);
+  background(img);
   if (!mSerial.opened()) {
     connectButton.show();
   }
@@ -191,17 +191,11 @@ function clearScreen() {
 }
 
 function draw() {
-  // background(img);
-  // if (cState == NumberS && flashing) {
-  //   let thisnumber = floor(random(codelength));
-  //   textSize(200);
-  //   textAlign(CENTER, CENTER);
-  //   textStyle(BOLD);
-  //   text(thisnumber, width / 2, height / 2);
-  // }
   
+
   if (cState == NumberS) {
   } else if (cState == ConnectS) {
+    background(img);
   } else if (cState == InputS) {
     if (mSerial.opened() && readyToReceive) {
       readyToReceive = false;
@@ -214,9 +208,6 @@ function draw() {
       receiveSerial();
     }
   }
- 
-
-
 }
 function connectToSerial() {
   if (!mSerial.opened()) {
