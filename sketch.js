@@ -2,7 +2,7 @@ let numbers = [];
 let currentIndex = 0;
 let interval;
 let flashing = true;
-let codelength = 6;
+let codelength = 5;
 
 let readyToReceive;
 let mSerial;
@@ -110,39 +110,39 @@ function receiveSerial() {
   // serial update
   readyToReceive = true;
 
-//////////////////////////////////WORDS ON SCREEN 
+// //////////////////////////////////WORDS ON SCREEN 
 
 
-  let correctSequence;
+//   let correctSequence;
 
-  let isCorrect = true;
+//   let isCorrect = true;
 
-  for (let i = 0; i < numbers.length; i++) {
-    if (numbers[i] !== correctSequence[i]) {
-      isCorrect = false;
-      break;
-    }
-  }
+//   for (let i = 0; i < numbers.length; i++) {
+//     if (numbers[i] !== correctSequence[i]) {
+//       isCorrect = false;
+//       break;
+//     }
+//   }
 
-  if (isCorrect && numbers.length === correctSequence.length) {
+//   if (isCorrect && numbers.length === correctSequence.length) {
     
-    background(255, 20, 147);
-    textSize(32);
-    textAlign(CENTER, CENTER);
-    text("Yay", width / 2, height / 2);
-  } else if (!isCorrect) {
+//     background(255, 20, 147);
+//     textSize(32);
+//     textAlign(CENTER, CENTER);
+//     text("Yay", width / 2, height / 2);
+//   } else if (!isCorrect) {
     
-    background(255, 20, 147);
-    textSize(32);
-    textAlign(CENTER, CENTER);
-    text("Nay", width / 2, height / 2);
+//     background(255, 20, 147);
+//     textSize(32);
+//     textAlign(CENTER, CENTER);
+//     text("Nay", width / 2, height / 2);
 
     
-    setTimeout(restartProcess, 1000); 
+//     setTimeout(restartProcess, 1000); 
 
-}
+// }
 
-///////////////////////////////////
+// ///////////////////////////////////
 
 }
 
