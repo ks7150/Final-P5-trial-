@@ -54,13 +54,15 @@ function setup() {
 }
 
 function restartProcess1() {
-  print("restart");
+  print("ok");
   numbers = [];
   cState = NumberS;
   correctCount = 0;
   currentIndex = 0;
   interval = setInterval(flashNumber, 1000);
   button.hide();
+
+  
 }
 
 function restartProcess() {
@@ -156,7 +158,7 @@ function receiveSerial() {
     text("Yay", width / 2, height / 2);
     button.show();
   } else {
-    background(img);
+    // background(img);
   }
   // ///////////////////////////////////
 }
