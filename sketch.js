@@ -112,35 +112,21 @@ function receiveSerial() {
 
 // //////////////////////////////////WORDS ON SCREEN 
 
+if (correctCount === codelength) {
+  background(0, 255, 0); 
+  textSize(32);
+  textAlign(CENTER, CENTER);
+  text("Yay", width / 2, height / 2);
+} else if (correctCount < currentIndex++) {
 
-//   let correctSequence;
+  // Incorrect step entered
 
-//   let isCorrect = true;
-
-//   for (let i = 0; i < numbers.length; i++) {
-//     if (numbers[i] !== correctSequence[i]) {
-//       isCorrect = false;
-//       break;
-//     }
-//   }
-
-//   if (isCorrect && numbers.length === correctSequence.length) {
-    
-//     background(255, 20, 147);
-//     textSize(32);
-//     textAlign(CENTER, CENTER);
-//     text("Yay", width / 2, height / 2);
-//   } else if (!isCorrect) {
-    
-//     background(255, 20, 147);
-//     textSize(32);
-//     textAlign(CENTER, CENTER);
-//     text("Nay", width / 2, height / 2);
-
-    
-//     setTimeout(restartProcess, 1000); 
-
-// }
+  background(255, 0, 0);
+  textSize(32);
+  textAlign(CENTER, CENTER);
+  text("Nay", width / 2, height / 2);
+  setTimeout(restartProcess, 1000);
+}
 
 // ///////////////////////////////////
 
